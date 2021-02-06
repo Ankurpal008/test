@@ -1,0 +1,81 @@
+Solution:1
+
+list = [1,2,4,5,8,4,7]
+sum = 0
+for i in list:
+    sum+=i
+print(sum)
+
+Solution:2
+
+d1 = {"1": "name1",
+        "2": "name2",
+        "3": "name3"}
+
+d2 = {"1": 50,
+        "2": 60,
+        "3": 70}
+
+def Dict_max(d1,d2):
+    for i in d2:
+        if i == max(d2):
+            return {i: d2[i]}
+print(Dict_max(d1,d2))
+
+Solution:3
+
+def max_repeted(a):
+    count = 0
+    ans = 0
+    for i in range(0,len(a)):
+        if (a[i]==0):
+            count=0
+        else:
+            count+=1
+            ans = max(ans,count)
+    return ans
+
+
+
+a = [0,0,0,1,1,1,0,0,0,1,1,0,1,1,1,1,0,0,1,1]
+
+
+print(max_repeted(a))
+
+Solution:4
+
+import os
+from flask import Flask, render_template, redirect, url_for, request
+from flask_sqlalchemy impor SQLAlchemy
+basedir = os.pathabspath(os.path.dirname(__filename__)
+app = flask(__name__)
+app.config['SQLALCHEMY_DATABASE_UTL'] = 'sqlite:///' + os.path.join(basedir,'data.sqlite')
+db = SQLALchemy(app)
+class user(db.model):
+     __tablename__= 'Address'
+     id = db.column(bd.Integer,primary_key='true')
+     street = db.column(db.text)
+     country = db.column(db.text)
+     state = db.column(db.text)
+     pincode = db.column(db.Integer)
+     phone =  db.column(db.Integer)
+     
+ def __init__(self,street,country,state,pincode,phone):
+     self.street = street
+     self.country = country
+     self.state = state
+     self.pincode = pincode
+     self.phone = phone
+     
+     
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+            error = 'Invalid Credentials. Please try again.'
+        else:
+            return redirect(url_for('home'))
+    return render_template('login.html', error=error)
+
+
